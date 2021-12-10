@@ -11,38 +11,39 @@ import { useKeepAwake } from "expo-keep-awake";
 
 const DEFAULT_TIME = 0.1;
 
-export const Timer = ({ focusSubject }) => {
-  useKeepAwake()
+export const Timer = ({ focusSubject, onTimerEnd }) => {
+  useKeepAwake();
 
-  const [isStarted, setIsStarted] = useState(false)
-  const [progress, setProgress] = useState(1)
+  const [isStarted, setIsStarted] = useState(false);
+  const [progress, setProgress] = useState(1);
   const [minutes, setMinutes] = useState(DEFAULT_TIME);
 
   const onProgress = (progress) => {
-    setProgress(progress)
-  }
+    setProgress(progress);
+  };
 
   const vibrate = () => {
-    if(Platform.OS === 'ios') {
-      const interval = setInterval(() => Vibration.vibrate(), 1000)
-      setTimeout(() => clearInterval(interval), 1000)
+    if (Platform.OS === "ios") {
+      const interval = setInterval(() => Vibration.vibrate(), 1000);
+      setTimeout(() => clearInterval(interval), 1000);
     } else {
-      Vibration.vibrate(10000)
+      Vibration.vibrate(10000);
     }
-  }
+  };
 
   const changeTime = (min) => {
-    setMinutes(min)
-    setProgress(1)
-    setIsStarted(false)
-  }
+    setMinutes(min);
+    setProgress(1);
+    setIsStarted(false);
+  };
 
   const onEnd = () => {
     vibrate();
     setMinutes(DEFAULT_TIME);
     setProgress(1);
     setIsStarted(false);
-  }
+    onTimerEnd();
+  };
 
   return (
     <View style={styles.container}>
@@ -64,10 +65,10 @@ export const Timer = ({ focusSubject }) => {
           color="#5E84E2"
           style={{ height: 10 }}
         />
-      </ View>
+      </View>
       <View style={styles.buttonWrapper}>
         <Timing onChangeTime={changeTime} />
-      </ View>
+      </View>
       <View style={styles.buttonWrapper}>
         {isStarted ? (
           <RoundedButton title="stop" onPress={() => setIsStarted(false)} />
@@ -77,7 +78,7 @@ export const Timer = ({ focusSubject }) => {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   constainer: {
