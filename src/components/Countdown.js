@@ -13,7 +13,8 @@ export const Countdown = (
     onProgress,
     onEnd
   }) => {
-  const interval = React.useRef(null);
+    const interval = React.useRef(null);
+    const [millis, setMillis] = useState(minutesToMillis(null));
 
   const countDown = () => {
     setMillis((time) => {
@@ -24,7 +25,6 @@ export const Countdown = (
       }
 
       const timeLeft = time - 1000;
-      onProgress(timeLeft / minutesToMillis(minutes));
       return timeLeft;
     });
   };
@@ -33,7 +33,9 @@ export const Countdown = (
     setMillis(minutesToMillis(minutes))
   }, [ minutes ])
 
-
+  useEffect(() => {
+    onProgress(millis / minutesToMillis(minutes));
+  },[millis])
 
   useEffect(() => {
     if (isPaused) {
@@ -45,7 +47,6 @@ export const Countdown = (
     return () => clearInterval(interval.current);
   }, [isPaused]);
 
-  const [millis, setMillis] = useState(minutesToMillis(minutes));
 
   const minute = Math.floor(millis / 1000 / 60) % 60;
   const seconds = Math.floor(millis / 1000) % 60;
@@ -59,10 +60,14 @@ export const Countdown = (
 
 const styles = StyleSheet.create({
   text: {
+    textAlign: 'center',
+    width: "80%",
     fontSize: fontSizes.xxxl,
     fontWeight: "bold",
-    color: colors.white,
+    color: "gray",
     padding: spacing.lg,
-    backgroundColor: "rgba(94, 132, 226, 0.3)",
+    //backgroundColor: "rgba(94, 132, 226, 0.3)",
+    backgroundColor: "yellow",
+    borderRadius: 50,
   },
 });

@@ -9,7 +9,7 @@ import { Timing } from './Timing';
 
 import { useKeepAwake } from "expo-keep-awake";
 
-const DEFAULT_TIME = 0.1;
+const DEFAULT_TIME = 1;
 
 export const Timer = ({ focusSubject, onTimerEnd, clearSubject }) => {
   useKeepAwake();
@@ -84,7 +84,7 @@ export const Timer = ({ focusSubject, onTimerEnd, clearSubject }) => {
 };
 
 const styles = StyleSheet.create({
-  constainer: {
+  container: {
     flex: 1,
   },
   title: {
