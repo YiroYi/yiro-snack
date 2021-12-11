@@ -59,12 +59,14 @@ export const Countdown = (
 
 const styles = StyleSheet.create({
   text: {
+    textAlign: 'center',
+    width: "80%",
     fontSize: fontSizes.xxxl,
     fontWeight: "bold",
-    color: 'gray',
+    color: "gray",
     padding: spacing.lg,
     //backgroundColor: "rgba(94, 132, 226, 0.3)",
-    backgroundColor: 'yellow',
-    borderRadius: 50
+    backgroundColor: "yellow",
+    borderRadius: 50,
   },
 });
