@@ -35,6 +35,9 @@ export const FocusHistory = ({
                 data={focusHistory}
                 renderItem={HistoryItem}
               />
+            <View style={styles.clearContainer}>
+              <RoundedButton size={80} title="Clear " onPress={() => onClear()}/>
+            </View>
           </>
         )}
       </SafeAreaView>
@@ -51,5 +54,9 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: fontSizes.lg,
   },
+  clearContainer: {
+    alignItems: 'center',
+    padding: spacing.md
+  }
 });
 

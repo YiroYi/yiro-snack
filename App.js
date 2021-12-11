@@ -5,6 +5,7 @@ import { Timer } from './src/features/timer/Timer';
 import { colors } from './src/utils/colors';
 import { spacing } from "./src/utils/sizes";
 import { FocusHistory } from './src/features/focus/FocusHistory';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const STATUSES = {
   COMPLETE: 1,
@@ -20,8 +21,36 @@ export default function App() {
   }
 
   const onClear = () => {
-
+    setFocusHistory([])
   }
+
+  const saveFocusHistory = async() => {
+    try {
+      await AsyncStorage.setItem("focusHistory", JSON.stringify(focusHistory));
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const loadFocusHistory = async () => {
+    try {
+      const history = await AsyncStorage.getItem("focusHistory")
+
+      if(history && JSON.parse(history).length) {
+        setFocusHistory(JSON.parse(history));
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    loadFocusHistory();
+  }, []); // cuando dejamos el arreglo vacio es como hacer un componentDidMount
+
+  useEffect(() => {
+    saveFocusHistory()
+  }, [focusHistory])
 
   return (
     <View style={styles.container}>
